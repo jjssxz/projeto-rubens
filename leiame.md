@@ -4,7 +4,7 @@
 
 3- Anthony Sales- Aprendi muito durante todo o processo e pude contribuir de forma significativa para o sucesso do projeto. A atmosfera de colaboração e dedicação foi inspiradora.
 
-3- Jhonys Gabriel-Foi- realmente gratificante participar deste projeto. Aprendi muito e desfrutei da colaboração com a equipe. Mal posso esperar para futuras oportunidades!
+3- Jhonys Gabriel- Foi realmente gratificante participar deste projeto. Aprendi muito e desfrutei da colaboração com a equipe. Mal posso esperar para futuras oportunidades!
 
 3- Jenesson Jesus- Foi legal poder usar minhas habilidades de programação neste projeto. Trabalhar com a equipe para resolver problemas foi muito bom e ajudou a treinar minhas habilidades em programação.
 

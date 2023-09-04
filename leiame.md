@@ -14,5 +14,5 @@
 
 5- Concluímos contando com a ajuda de materiais, como os PDFs fornecidos pelo professor e informações de alguns sites relevantes, além de nossa própria inteligência.
 
-https://www.javatpoint.com/java-tutorial
+https://www.javatpoint.com/java-tutorial ,
 https://javascript.info/classes

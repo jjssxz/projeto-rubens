@@ -1,271 +1,171 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários</title>
-    <script type='text/javascript' src="script.js"></script>
+const prompt = require('prompt-sync')({ sigint: true });
+let id = 1;
 
-    <style>
-        #listaRegistros{ display: none; }
-        #cadastroRegistro{
-            display: none;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        body[page=lista] #listaRegistros{ display: block; }
-        body[page=cadastro] #cadastroRegistro{ display: flex; }
-
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 14px;
-        }
-
-        table{
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table th,
-        table td{
-            font-size: 14px;
-            padding: 10px 15px;
-            border: solid 1px #ccc;
-        }
-
-        button{
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: #07a;
-            color: #fff;
-            margin: 3px;
-            padding: 10px 15px;
-        }
-        button.cinza{
-            background-color: #ccc;
-            color: #666;
-        }
-        button.vermelho{
-            background-color: #a00;
-        }
-        button:hover{
-            opacity: 0.8;
-        }
-
-        input{
-            border: solid 1px #ccc;
-            border-radius: 4px;
-            padding: 10px;
-        }
-
-        .label>div{
-            display: flex;
-        }
-        .label>div>input{
-            flex: 1;
-        }
-
-    </style>
-
-</head>
-<body page='lista'>
-    
-    <div id='listaRegistros'>
-
-        <div style='display: flex;'>
-            <input style='flex:1' placeholder="PESQUISAR" autofocus id='inputPesquisa' />
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>ID do Contato</th>
-                    <th>Nome</th>
-                    <th>Número</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id='listaRegistrosBody'></tbody>
-        </table>
-
-        <div class="button">
-            <button onclick="vizualizar('cadastro', true)">Criar Contato</button>
-        </div>
-
-    </div>
-
-    <form id='cadastroRegistro'>
-
-        <div class='label'>
-            <div>ID</div>
-            <div>
-                <input type='number' readonly id='id' />
-            </div>
-        </div>
-
-        <div class='label'>
-            <div>Nome</div>
-            <div>
-                <input id='nome' />
-            </div>
-        </div>
-
-        <div class='label'>
-            <div>Número</div>
-            <div>
-                <input type='tel' id='fone' />
-            </div>
-        </div>
-
-        <div>
-            <button>Salvar</button>
-            <button onclick="vizualizar('lista')" class="cinza" type='button'>Cancelar</button>
-        </div>
-
-    </form>
-<script>
-    const KEY_BD = '@usuariosestudo'
-
-
-var listaRegistros = {
-    ultimoIdGerado:0,
-    usuarios:[]
-}
-
-
-var FILTRO = ''
-
-
-function gravarBD(){
-    localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
-}
-
-function lerBD(){
-    const data = localStorage.getItem(KEY_BD)
-    if(data){
-        listaRegistros = JSON.parse(data)
-    }
-    desenhar()
-}
-
-
-function pesquisar(value){
-    FILTRO = value;
-    desenhar()
-}
-
-
-function desenhar(){
-    const tbody = document.getElementById('listaRegistrosBody')
-    if(tbody){
-        var data = listaRegistros.usuarios;
-        if(FILTRO.trim()){
-            const expReg = eval(`/${FILTRO.trim().replace(/[^\d\w]+/g,'.*')}/i`)
-            data = data.filter( usuario => {
-                return expReg.test( usuario.nome ) || expReg.test( usuario.fone )
-            } )
-        }
-        data = data
-            .sort( (a, b) => {
-                return a.nome < b.nome ? -1 : 1
-            })
-            .map( usuario => {
-                return `<tr>
-                        <td>${usuario.id}</td>
-                        <td>${usuario.nome}</td>
-                        <td>${usuario.fone}</td>
-                        <td>
-                            <button onclick='vizualizar("cadastro",false,${usuario.id})'>Editar</button>
-                            <button class='vermelho' onclick='perguntarSeDeleta(${usuario.id})'>Deletar</button>
-                        </td>
-                    </tr>`
-            } )
-        tbody.innerHTML = data.join('')
+class Contato {
+    constructor(nome, telefone, email) {
+        this.id = id;
+        id++;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
     }
 }
 
-function insertUsuario(nome, fone){
-    const id = listaRegistros.ultimoIdGerado + 1;
-    listaRegistros.ultimoIdGerado = id;
-    listaRegistros.usuarios.push({
-        id, nome, fone
-    })
-    gravarBD()
-    desenhar()
-    vizualizar('lista')
-}
-
-function editUsuario(id, nome, fone){
-    var usuario = listaRegistros.usuarios.find( usuario => usuario.id == id )
-    usuario.nome = nome;
-    usuario.fone = fone;
-    gravarBD()
-    desenhar()
-    vizualizar('lista')
-}
-
-function deleteUsuario(id){
-    listaRegistros.usuarios = listaRegistros.usuarios.filter( usuario => {
-        return usuario.id != id
-    } )
-    gravarBD()
-    desenhar()
-}
-
-function perguntarSeDeleta(id){
-    if(confirm('Quer deletar o registro de id '+id)){
-        deleteUsuario(id)
+class Cliente extends Contato {
+    constructor(nome, telefone, email, empresa) {
+        super(nome, telefone, email);
+        this.empresa = empresa;
     }
 }
 
-
-function limparEdicao(){
-    document.getElementById('nome').value = ''
-    document.getElementById('fone').value = ''
+class Amigo extends Contato {
+    constructor(nome, telefone, email, aniversario) {
+        super(nome, telefone, email);
+        this.aniversario = aniversario;
+    }
 }
 
-function vizualizar(pagina, novo=false, id=null){
-    document.body.setAttribute('page',pagina)
-    if(pagina === 'cadastro'){
-        if(novo) limparEdicao()
-        if(id){
-            const usuario = listaRegistros.usuarios.find( usuario => usuario.id == id )
-            if(usuario){
-                document.getElementById('id').value = usuario.id
-                document.getElementById('nome').value = usuario.nome
-                document.getElementById('fone').value = usuario.fone
+class Colega extends Contato {
+    constructor(nome, telefone, email, departamento) {
+        super(nome, telefone, email);
+        this.departamento = departamento;
+    }
+}
+
+class Agenda {
+    constructor() {
+        this.agenda = [];
+    }
+
+    agendar(contato) {
+        this.agenda.push(contato);
+    }
+
+    visualizar() {
+        this.agenda.forEach(contato => {
+            console.log(`
+                ID: ${contato.id} 
+                Nome: ${contato.nome}
+                Telefone: ${contato.telefone} 
+                Email: ${contato.email}`);
+
+            if (contato.constructor === Cliente) {
+                console.log(`Empresa: ${contato.empresa}`);
+            } else if (contato.constructor === Amigo) {
+                console.log(`Aniversário: ${contato.aniversario}`);
+            } else if (contato.constructor === Colega) {
+                console.log(`Departamento: ${contato.departamento}`);
             }
+        });
+    }
+
+    editar(id) {
+        this.agenda.forEach(contato => {
+            if (contato.id === id) {
+                contato.nome = prompt(`Digite o novo nome: `);
+                contato.telefone = prompt(`Digite o novo telefone: `);
+                contato.email = prompt(`Digite o novo email: `);
+
+                if (contato.constructor === Cliente) {
+                    contato.empresa = prompt(`Digite a nova empresa: `);
+                } else if (contato.constructor === Amigo) {
+                    contato.aniversario = prompt(`Digite o novo aniversário: `);
+                } else if (contato.constructor === Colega) {
+                    contato.departamento = prompt(`Digite o novo departamento: `);
+                }
+            }
+        });
+    }
+
+    deletar(id) {
+        this.agenda = this.agenda.filter(contato => contato.id !== id);
+    }
+
+    pesquisarNome(nome) {
+        const resultado = this.agenda.find(contato => contato.nome === nome);
+
+        if (resultado) {
+            console.log(`
+                ID: ${resultado.id} 
+                Nome: ${resultado.nome}
+                Telefone: ${resultado.telefone} 
+                Email: ${resultado.email}`);
+
+            if (resultado.constructor === Cliente) {
+                console.log(`Empresa: ${resultado.empresa}`);
+            } else if (resultado.constructor === Amigo) {
+                console.log(`Aniversário: ${resultado.aniversario}`);
+            } else if (resultado.constructor === Colega) {
+                console.log(`Departamento: ${resultado.departamento}`);
+            }
+        } else {
+            console.log(`Contato com o nome "${nome}" não encontrado.`);
         }
-        document.getElementById('nome').focus()
     }
 }
 
+const agenda = new Agenda;
+let resposta = -1;
 
+while (resposta !== 0) {
+    console.log('1 - Adicionar Contato');
+    console.log('2 - Visualizar Agenda');
+    console.log('3 - Editar Contato');
+    console.log('4 - Excluir Contato');
+    console.log('5 - Pesquisar por Nome');
+    resposta = Number(prompt(': '));
 
-function submeter(e){
-    e.preventDefault()
-    const data = {
-        id: document.getElementById('id').value,
-        nome: document.getElementById('nome').value,
-        fone: document.getElementById('fone').value,
-    }
-    if(data.id){
-        editUsuario(data.id, data.nome, data.fone)
-    }else{
-        insertUsuario( data.nome, data.fone )
+    if (resposta === 1) {
+        console.log(' 1 - Contato Padrão \n 2 - Contato de um Cliente \n 3 - Contato de um Amigo \n 4 - Contato de um Colega de Trabalho');
+        let r = Number(prompt("Qual tipo de contato deseja criar?"));
+
+        if (r === 1) {
+            let nome = prompt('Digite o nome: ');
+            let telefone = prompt('Digite o telefone: ');
+            let email = prompt('Digite o email: ');
+            let contato = new Contato(nome, telefone, email);
+            agenda.agendar(contato);
+        } else if (r === 2) {
+            let nome = prompt('Digite o nome: ');
+            let telefone = prompt('Digite o telefone: ');
+            let email = prompt('Digite o email: ');
+            let empresa = prompt('Digite a empresa: ');
+            let contato = new Cliente(nome, telefone, email, empresa);
+            agenda.agendar(contato);
+        } else if (r === 3) {
+            let nome = prompt('Digite o nome: ');
+            let telefone = prompt('Digite o telefone: ');
+            let email = prompt('Digite o email: ');
+            let aniversario = prompt('Digite o aniversário: ');
+            let contato = new Amigo(nome, telefone, email, aniversario);
+            agenda.agendar(contato);
+        } else if (r === 4) {
+            let nome = prompt('Digite o nome: ');
+            let telefone = prompt('Digite o telefone: ');
+            let email = prompt('Digite o email: ');
+            let departamento = prompt('Digite o departamento: ');
+            let contato = new Colega(nome, telefone, email, departamento);
+            agenda.agendar(contato);
+        } else {
+            console.log('Digite uma opção válida');
+        }
+    } else if (resposta === 2) {
+        agenda.visualizar();
+        prompt('Confirme que quer avançar apertando Enter: ');
+    } else if (resposta === 3) {
+        agenda.visualizar();
+        let resposta = Number(prompt('Digite o ID do contato que deseja editar: '));
+        agenda.editar(resposta);
+    } else if (resposta === 4) {
+        agenda.visualizar();
+        let resposta = Number(prompt('Digite o ID do contato que deseja excluir: '));
+        agenda.deletar(resposta);
+    } else if (resposta === 5) {
+        let nome = prompt('Qual nome deseja pesquisar na agenda?');
+        agenda.pesquisarNome(nome);
+    } else if (resposta === 0) {
+        console.log('Até a próxima!');
+    } else {
+        console.log('Digite uma opção válida');
     }
 }
-
-
-window.addEventListener('load', () => {
-    lerBD()
-    document.getElementById('cadastroRegistro').addEventListener('submit', submeter)
-    document.getElementById('inputPesquisa').addEventListener('keyup', e => {
-        pesquisar(e.target.value)
-    })
-
-})
-</script>
-</body>
-</html>

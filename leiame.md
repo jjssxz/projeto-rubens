@@ -1,18 +1,28 @@
 1- Sim, todas as solicitações foram devidamente atendidas, e pedimos desculpas pela demora na resposta devido à nossa carga de trabalho intensa no momento. Estamos aqui para garantir que tudo tenha sido abordado de maneira completa.
 
-2- No momento, não identificamos nenhum erro. No entanto, é importante lembrar que, como em qualquer processo, podem surgir desafios no futuro.
+*****************************************************************************************************************************************
 
-3- Anthony Sales- Aprendi muito durante todo o processo e pude contribuir de forma significativa para o sucesso do projeto. A atmosfera de colaboração e dedicação foi inspiradora.
+2- Testamos e felizmente não identificamos nenhum erro. No entanto, é válido lembrar que em algum momento podemos ter deixado passar algo de importante, por isso pedimos que se houver algum erro nos comunique para que possamos em grupo resolver a falha.
 
-3- Jhonys Gabriel- Foi realmente gratificante participar deste projeto. Aprendi muito e desfrutei da colaboração com a equipe. Mal posso esperar para futuras oportunidades!
+******************************************************************************************************************************************
 
-3- Jenesson Jesus- Foi legal poder usar minhas habilidades de programação neste projeto. Trabalhar com a equipe para resolver problemas foi muito bom e ajudou a treinar minhas habilidades em programação.
+3- Anthony Sales- Tive chance de aprender junto com meus amigos a utilizar heranças em javascript. Fui responsável por averiguar os erros do codigo testando o programa por diversas formas.
 
-3- Emanuel Carlos- Uma experiência muito positiva. Fiquei contente em ver que o projeto foi concluído, mesmo que com um pequeno atraso. A colaboração com a equipe foi ótima, e isso tornou tudo mais gratificante.
+3- Jhonys Gabriel- Estive um tempo sem computador, devido a problemas pessoais, porém meus amigos e eu fizemos muito esforço para que conseguisse participar da criação desse trabalho. Fiquei encarregado de junto com o Anthony, testar o código.
 
-4- Inicialmente, uma das dificuldades que enfrentamos foi a falta de espaço na agenda e a incerteza sobre como começar o código. No entanto, superamos esses desafios com determinação e colaboração.
+3- Jenesson Jesus- Participei de projeto e notei que eles ajudam bastante no nosso aprendizado na matéria de POO. Acredito que bem como o conhecimento fica melhor de ser adquirido, creio que também nos une quanto amigos, já que o trabalho em equipe é essencial para que a atividade venha a ter sucesso.
 
-5- Concluímos contando com a ajuda de materiais, como os PDFs fornecidos pelo professor e informações de alguns sites relevantes, além de nossa própria inteligência.
+3- Emanuel Carlos- Criei o código junto com o Jenesson Jesus, nosso intuito era fazê-lo em html, como fizemos o primeiro, porém tivemos algumas dificuldades em adaptar o codigo js para uma interface em que o usuario pudesse interagir. Entao fizemos em node-js pelo replit e transferimos aqui para o Github. Queria ressaltar a significância desse projeto para nosso grupo, já que a gente não conseguiu desenvolver um bom resultado no último mini-teste, e com esse trabalho, temos em mente que possamos recuperar o prejuízo que tivemos, foi até mais facil de compreender o material que o senhor disponibilizou na sala do classroom. No geral, acredito que esse trabalho só nos trouxe benefícios.
 
-https://www.javatpoint.com/java-tutorial ,
-https://javascript.info/classes
+******************************************************************************************************************************************
+
+4- Como disse, o trabalho tem exterma importancia para nosso grupo, já que tivemos um desempenho abaixo nos mini testes, demos nosso melhor para recuperar a nota baixa. Uma das adversidades como foi já citada, foi a dificuldade em adaptar o codigo para o nosso site em html, que era nosso objetivo inicial, então nos fez fazer em node.js.
+
+******************************************************************************************************************************************
+
+5- Concluímos contando com a ajuda do material que o professor Ricardo Rubens disponibilizou no Classroom, além dos conhecimentos que ele passou em aula, procuramos colher também de outras fontes, como: 
+
+******************************************************************************************************************************************
+
+https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Objects/Classes_in_JavaScript
+https://www.youtube.com/watch?v=dmqNwVvKqR4
